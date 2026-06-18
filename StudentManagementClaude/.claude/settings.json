@@ -1,0 +1,15 @@
+{
+   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "powershell",
+            "command": "$raw = [Console]::In.ReadToEnd(); $json = $raw | ConvertFrom-Json; $timestamp = Get-Date -Format 'yyyy-MM-dd HH:mm:ss'; \"$timestamp | $($json.prompt)\" | Out-File -Append -Encoding utf8 -FilePath 'C:\\Users\\bhautik.ranpara\\.claude\\student_management_prompt_log.txt'"
+          }
+        ]
+      }
+    ]
+  }
+}
