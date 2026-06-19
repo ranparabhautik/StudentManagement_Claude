@@ -92,6 +92,9 @@ while (true)
 
 // ── Handlers ───────────────────────────────────────────────────────────────
 
+/// <summary>
+/// Prompts the user for student details and adds a new student via the service.
+/// </summary>
 async Task AddStudentAsync()
 {
     Console.WriteLine("── Add Student ──────────────────");
@@ -110,6 +113,9 @@ async Task AddStudentAsync()
     logger.LogInformation("Added student Id={Id} Name={Name}", result.Id, result.Name);
 }
 
+/// <summary>
+/// Retrieves and displays all students in a tabular format.
+/// </summary>
 async Task ViewAllStudentsAsync()
 {
     var students = (await studentService.GetAllStudentsAsync()).ToList();
@@ -126,6 +132,9 @@ async Task ViewAllStudentsAsync()
         Console.WriteLine($"{s.Id,-5} {s.Name,-25} {s.Email,-30} {s.EnrollmentDate:yyyy-MM-dd,-12} {s.Grade,-6}");
 }
 
+/// <summary>
+/// Prompts the user for a student ID and displays the matching student's details.
+/// </summary>
 async Task FindByIdAsync()
 {
     int id = PromptInt("Student ID");
@@ -142,6 +151,9 @@ async Task FindByIdAsync()
     PrintStudent(student);
 }
 
+/// <summary>
+/// Prompts the user for updated student details and applies the changes via the service.
+/// </summary>
 async Task UpdateStudentAsync()
 {
     Console.WriteLine("── Update Student ───────────────");
@@ -161,6 +173,9 @@ async Task UpdateStudentAsync()
     logger.LogInformation("Updated student Id={Id}", result.Id);
 }
 
+/// <summary>
+/// Prompts the user for a student ID, requests confirmation, then deletes the student.
+/// </summary>
 async Task DeleteStudentAsync()
 {
     int id = PromptInt("Student ID to delete");
@@ -180,12 +195,22 @@ async Task DeleteStudentAsync()
 
 // ── Helpers ────────────────────────────────────────────────────────────────
 
+/// <summary>
+/// Writes a labelled prompt and returns the trimmed console input.
+/// </summary>
+/// <param name="label">The label displayed before the input cursor.</param>
+/// <returns>Trimmed user input, or an empty string if input is null.</returns>
 static string Prompt(string label)
 {
     Console.Write($"{label}: ");
     return Console.ReadLine()?.Trim() ?? string.Empty;
 }
 
+/// <summary>
+/// Writes a labelled prompt and loops until the user enters a valid integer.
+/// </summary>
+/// <param name="label">The label displayed before the input cursor.</param>
+/// <returns>The parsed integer value entered by the user.</returns>
 static int PromptInt(string label)
 {
     while (true)
@@ -196,6 +221,11 @@ static int PromptInt(string label)
     }
 }
 
+/// <summary>
+/// Writes a labelled prompt and loops until the user enters a valid date.
+/// </summary>
+/// <param name="label">The label displayed before the input cursor.</param>
+/// <returns>The parsed <see cref="DateTime"/> value entered by the user.</returns>
 static DateTime PromptDate(string label)
 {
     while (true)
@@ -206,6 +236,10 @@ static DateTime PromptDate(string label)
     }
 }
 
+/// <summary>
+/// Prints a single student's details to the console.
+/// </summary>
+/// <param name="s">The student response DTO to display.</param>
 static void PrintStudent(StudentResponseDto s)
 {
     Console.WriteLine($"  ID            : {s.Id}");
